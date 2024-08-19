@@ -18,7 +18,7 @@ import {
   ICertificates,
 } from './lib/interface';
 import { IcombineH5, IcombineNative, IcombineApp, IcombineJsapi, IcloseSubOrders } from './lib/combine_interface';
-import { BatchesTransfer, FindRefunds, ProfitSharing, Refunds } from './lib/interface-v2';
+import { BatchesTransfer, FindRefunds, ProfitSharing, Refunds, UploadImages } from './lib/interface-v2';
 import { Base } from './lib/base';
 import { IPayRequest } from './lib/pay-request.interface';
 import { PayRequest } from './lib/pay-request';
@@ -924,6 +924,30 @@ class Pay extends Base {
     return await this.httpService.get(url, headers);
   }
   //#endregion 分账
+  public async upload_images(pic_buffer: Buffer, filename: string): Promise<UploadImages.IOutput> {
+    //meta信息
+    const fileinfo = {
+      filename,
+      sha256: '',
+    };
+    const sign = crypto.createHash('sha256');
+    sign.update(pic_buffer);
+    fileinfo.sha256 = sign.digest('hex');
+
+    const url = '/v3/merchant/media/upload';
+
+    const authorization = this.buildAuthorization('POST', url, fileinfo);
+
+    const headers = this.getHeaders(authorization, { 'Content-Type': 'multipart/form-data;boundary=boundary' });
+    return await this.httpService.post(
+      url,
+      {
+        fileinfo,
+        pic_buffer,
+      },
+      headers,
+    );
+  }
 }
 
 export = Pay;

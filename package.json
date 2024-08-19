@@ -1,6 +1,6 @@
 {
   "name": "wechatpay-node-v3",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "微信支付文档v3",
   "keywords": [
     "node",
@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "release": "npm publish",
+    "release": "npm publish --registry=https://registry.npmjs.org/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

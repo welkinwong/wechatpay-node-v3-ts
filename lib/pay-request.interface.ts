@@ -9,6 +9,13 @@ export interface IPayRequest {
    */
   post(url: string, params: Record<string, any>, headers: Record<string, any>): Promise<Output>;
   /**
+   * 上传文件
+   * @param url url
+   * @param params body
+   * @param headers 请求头
+   */
+  upload(url: string, params: Record<string, any>, headers: Record<string, any>): Promise<Output>;
+  /**
    * get 请求
    * @param url url
    * @param headers 请求头

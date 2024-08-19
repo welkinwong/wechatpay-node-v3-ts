@@ -577,3 +577,9 @@ export declare namespace FindRefunds {
     data?: DataOutput;
   }
 }
+
+export declare namespace UploadImages {
+  export interface IOutput extends Output {
+    data?: { media_id: string };
+  }
+}
